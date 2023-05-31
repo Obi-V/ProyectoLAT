@@ -1,0 +1,19 @@
+https://github.com/coreybutler/nvm-windows/releases
+nvm ls-remote
+nvm install --lts
+nvm ls
+
+npm install -g @angular/cli
+ng add @ng-bootstrap/ng-bootstrap
+ng new app-videoclub
+cd app-videoclub
+ng add @ng-bootstrap/ng-bootstrap
+ng generate module categoria --routing
+
+ng generate component categoria/index
+ng generate component categoria/create
+ng generate component categoria/edit
+
+#en tsconfig.json" en compilerOptions -> "noImplicitAny": false
+
+
