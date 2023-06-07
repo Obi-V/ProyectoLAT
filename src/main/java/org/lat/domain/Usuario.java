@@ -13,25 +13,28 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode(of = "nombre")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
+    @EqualsAndHashCode.Include
     private long id;
 
+    @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private String contraseña;
 
+    @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @ManyToMany(
-            mappedBy = "usuarios")
+    @ManyToMany()
     @JsonIgnore
     Set<Curso> cursos = new HashSet<>();
 
