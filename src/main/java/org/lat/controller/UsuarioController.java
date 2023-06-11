@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/lat/usuarios")
+@RequestMapping("/lat/usuarios")
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
