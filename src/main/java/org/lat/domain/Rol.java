@@ -4,4 +4,7 @@ public enum Rol {
     ADMINISTRADOR,
     ALUMNO,
     PROFESOR
+
+
+
 }
