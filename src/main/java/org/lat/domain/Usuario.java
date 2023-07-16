@@ -26,13 +26,27 @@ public class Usuario {
     private String nombre;
 
     @Column(nullable = false)
-    private String contraseña;
+    private String password;
 
     @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    /* Añadidos al completar el perfil */
+    @Column
+    private String pais;
+
+    /* Hay que hacerlas colecciones*/
+    @Column
+    private String habilidades;
+
+    @Column
+    private String idiomas;
+
+    @Column
+    private String respuesta;
 
     @ManyToMany()
     @JsonIgnore

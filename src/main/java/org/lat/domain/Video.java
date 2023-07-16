@@ -25,7 +25,13 @@ public class Video {
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String titulo;
+
+    @Column(nullable = false)
+    private String descripcion;
+
+    @Column(nullable = false)
+    private String img;
 
     @Column(nullable = false)
     private String url;

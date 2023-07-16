@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -19,6 +20,7 @@ import java.util.*;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Curso {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -28,8 +30,14 @@ public class Curso {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = true)
+    private String subtitulo;
+
     @Column(nullable = false)
-    private String direccion;
+    private String url;
+
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    private String descripcion;
 
     @ManyToMany(mappedBy = "cursos")
     @JsonIgnore
