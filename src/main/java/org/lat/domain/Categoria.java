@@ -14,40 +14,29 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
-@Table(name="cursos")
+@Table(name="categoria")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Curso {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name="id_curso")
+    @Column(name="id_categoria")
     private long id;
 
     @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = true)
-    private String subtitulo;
-
-    @Column(nullable = false)
-    private String url;
-
     @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String descripcion;
 
-    @ManyToMany(mappedBy = "cursos")
+    @ManyToMany(mappedBy = "categorias")
     @JsonIgnore
     private Set<Usuario> usuarios = new HashSet<>();
 
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
-    private List<Video> videos = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
-
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Curso> cursos = new ArrayList<>();
 }

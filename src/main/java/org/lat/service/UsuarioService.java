@@ -60,9 +60,8 @@ public class UsuarioService {
                 .orElseThrow(() -> new UsuarioNotFoundException(id));
     }
 
-
-    public List<Usuario> usuariosByIdAsc(String nombre){
+    /*public List<Usuario> usuariosByIdAsc(String nombre){
         // return this.usuarioRepository.findByNombreContainingIgnoreCaseOrderByIdAsc(nombre);
-        return this.usuarioRepository.buscarPorNombre(nombre);
-    }
+        return this.usuarioRepository.findByUsername(nombre);
+    }*/
 }

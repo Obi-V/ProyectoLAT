@@ -7,13 +7,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
-    public List<Usuario> findByNombreContainingIgnoreCaseOrderByIdAsc(String nombre);
+    Optional<Usuario> findByUsername(String username);
 
-    @Query(value="SELECT * from usuarios where usuarios.nombre like %:nombre%", nativeQuery = true)
+     /*
+     public List<Usuario> findByUsernameContainingIgnoreCaseOrderByIdAsc(String nombre);
+
+    @Query(value="SELECT * from usuarios where usuario.username like %:nombre%", nativeQuery = true)
     public List<Usuario> buscarPorNombre(@Param("nombre") String nombre);
+    */
 
 }

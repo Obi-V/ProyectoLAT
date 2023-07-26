@@ -3,18 +3,23 @@ package org.lat.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "usuarios")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Usuario {
+@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames="username")})
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +28,7 @@ public class Usuario {
     private long id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -31,6 +36,7 @@ public class Usuario {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
@@ -39,17 +45,52 @@ public class Usuario {
     private String pais;
 
     /* Hay que hacerlas colecciones*/
-    @Column
-    private String habilidades;
+    @ElementCollection
+    @CollectionTable(name = "usuario_habilidades", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name="habilidad")
+    private Set<String> habilidades = new HashSet<>();
 
-    @Column
-    private String idiomas;
+    @ElementCollection
+    @CollectionTable(name = "usuario_idiomas", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "idioma")
+    private Set<String> idiomas = new HashSet<>();
 
-    @Column
-    private String respuesta;
+    @ElementCollection
+    @CollectionTable(name = "usuario_respuestas", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "respuesta")
+    private Set<String> respuesta = new HashSet<>();
 
     @ManyToMany()
     @JsonIgnore
     Set<Curso> cursos = new HashSet<>();
 
+    @ManyToMany()
+    @JsonIgnore
+    Set<Categoria> categorias = new HashSet<>();
+
+    /* USERDETAILS */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return List.of(new SimpleGrantedAuthority(rol.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
