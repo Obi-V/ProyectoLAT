@@ -1,5 +1,6 @@
 package org.lat.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lat.domain.Usuario;
 import org.lat.domain.Video;
@@ -12,20 +13,10 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/lat/videos")
 public class VideoController {
     private final VideoService videoService;
-
-    public VideoController(VideoService videoService) {
-        this.videoService = videoService;
-    }
-
-    //Get All
-    @GetMapping({"", "/"})
-    public List<Video> all() {
-        log.info("Accediendo a todas los videos");
-        return this.videoService.all();
-    }
 
     //Post Crear
     @PostMapping({"", "/"})

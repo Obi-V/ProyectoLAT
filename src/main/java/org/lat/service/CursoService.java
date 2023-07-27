@@ -1,6 +1,7 @@
 package org.lat.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.lat.domain.Curso;
 import org.lat.domain.Video;
 import org.lat.Repository.CursoRepository;
@@ -10,13 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CursoService {
 
     private final CursoRepository cursoRepository;
-
-    public CursoService(CursoRepository cursoRepository) {
-        this.cursoRepository = cursoRepository;
-    }
 
     public List<Curso> all() {
         return this.cursoRepository.findAll();

@@ -1,5 +1,6 @@
 package org.lat.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lat.domain.Directo;
 import org.lat.service.DirectoService;
@@ -11,19 +12,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/lat/cursos")
+@RequiredArgsConstructor
 public class CursoController {
     private final DirectoService directoService;
-
-    public CursoController(DirectoService directoService) {
-        this.directoService = directoService;
-    }
-
-    //Get All
-    @GetMapping({"", "/"})
-    public List<Directo> all() {
-        log.info("Accediendo a todas los directos");
-        return this.directoService.all();
-    }
 
     //Post Crear
     @PostMapping({"", "/"})

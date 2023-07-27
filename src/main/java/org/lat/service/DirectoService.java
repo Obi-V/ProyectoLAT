@@ -1,6 +1,7 @@
 package org.lat.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.lat.Repository.DirectoRepository;
 import org.lat.domain.Directo;
 import org.lat.exception.UsuarioNotFoundException;
@@ -9,13 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DirectoService {
 
     private final DirectoRepository directoRepository;
-
-    public DirectoService(DirectoRepository directoRepository) {
-        this.directoRepository = directoRepository;
-    }
 
     public List<Directo> all() {
         return this.directoRepository.findAll();

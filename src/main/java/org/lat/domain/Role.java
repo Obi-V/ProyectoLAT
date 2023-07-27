@@ -1,10 +1,7 @@
 package org.lat.domain;
 
-public enum Rol {
-    ADMINISTRADOR,
+public enum Role {
+    ADMIN,
     ALUMNO,
     PROFESOR
-
-
-
 }

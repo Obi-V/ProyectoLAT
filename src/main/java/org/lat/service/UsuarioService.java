@@ -1,44 +1,21 @@
 package org.lat.service;
 
+import lombok.RequiredArgsConstructor;
 import org.lat.Repository.UsuarioRepository;
-import org.lat.domain.Rol;
 import org.lat.domain.Usuario;
 import org.lat.exception.UsuarioNotFoundException;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-    private final List<Rol> rolesPermitidos;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-
-        rolesPermitidos = new ArrayList<>();
-        rolesPermitidos.add(Rol.ALUMNO);
-        rolesPermitidos.add(Rol.PROFESOR);
-
-        this.usuarioRepository = usuarioRepository;
-    }
 
     public List<Usuario> all() {
         return this.usuarioRepository.findAll();
-    }
-
-    public Usuario save(Usuario usuario) {
-
-        if(rolesPermitidos.contains(usuario.getRol()) ){
-        return this.usuarioRepository.save(usuario);
-        } else{
-            throw new RuntimeException("Rol no admitido");
-        }
     }
 
     public Usuario one(Long id) {

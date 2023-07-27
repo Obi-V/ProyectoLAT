@@ -18,7 +18,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames="username")})
+@Table(name = "usuario", uniqueConstraints = {
+        @UniqueConstraint(columnNames="username"),
+        @UniqueConstraint(columnNames="email")
+        })
 public class Usuario implements UserDetails {
 
     @Id
@@ -38,7 +41,7 @@ public class Usuario implements UserDetails {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Rol rol;
+    private Role role;
 
     /* Añadidos al completar el perfil */
     @Column
@@ -71,7 +74,7 @@ public class Usuario implements UserDetails {
     /* USERDETAILS */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return List.of(new SimpleGrantedAuthority(rol.name()));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

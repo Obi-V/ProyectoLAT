@@ -1,5 +1,6 @@
 package org.lat.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lat.domain.Directo;
 import org.lat.service.DirectoService;
@@ -10,20 +11,10 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/lat/directos")
 public class DirectoController {
     private final DirectoService directoService;
-
-    public DirectoController(DirectoService directoService) {
-        this.directoService = directoService;
-    }
-
-    //Get All
-    @GetMapping({"", "/"})
-    public List<Directo> all() {
-        log.info("Accediendo a todas los directos");
-        return this.directoService.all();
-    }
 
     //Post Crear
     @PostMapping({"", "/"})
