@@ -7,10 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -21,7 +18,7 @@ import java.util.Set;
 @Table(name = "usuario", uniqueConstraints = {
         @UniqueConstraint(columnNames="username"),
         @UniqueConstraint(columnNames="email")
-        })
+})
 public class Usuario implements UserDetails {
 
     @Id
@@ -47,7 +44,19 @@ public class Usuario implements UserDetails {
     @Column
     private String pais;
 
-    /* Hay que hacerlas colecciones*/
+    @Column
+    private String respuesta;
+
+    @Column
+    private String img;
+
+    @Column
+    private String descripcion;
+
+    @Column
+    private String subtitulo;
+
+    /* Colecciones*/
     @ElementCollection
     @CollectionTable(name = "usuario_habilidades", joinColumns = @JoinColumn(name = "usuario_id"))
     @Column(name="habilidad")
@@ -58,18 +67,13 @@ public class Usuario implements UserDetails {
     @Column(name = "idioma")
     private Set<String> idiomas = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(name = "usuario_respuestas", joinColumns = @JoinColumn(name = "usuario_id"))
-    @Column(name = "respuesta")
-    private Set<String> respuesta = new HashSet<>();
+    @ManyToMany()
+    @JsonIgnore
+    List<Curso> cursos = new ArrayList<>();;
 
     @ManyToMany()
     @JsonIgnore
-    Set<Curso> cursos = new HashSet<>();
-
-    @ManyToMany()
-    @JsonIgnore
-    Set<Categoria> categorias = new HashSet<>();
+    List<Categoria> categorias = new ArrayList<>();
 
     /* USERDETAILS */
     @Override

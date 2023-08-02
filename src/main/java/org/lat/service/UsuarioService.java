@@ -2,10 +2,16 @@ package org.lat.service;
 
 import lombok.RequiredArgsConstructor;
 import org.lat.Repository.UsuarioRepository;
+import org.lat.domain.Curso;
 import org.lat.domain.Usuario;
 import org.lat.exception.UsuarioNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +43,13 @@ public class UsuarioService {
                 .orElseThrow(() -> new UsuarioNotFoundException(id));
     }
 
-    /*public List<Usuario> usuariosByIdAsc(String nombre){
-        // return this.usuarioRepository.findByNombreContainingIgnoreCaseOrderByIdAsc(nombre);
-        return this.usuarioRepository.findByUsername(nombre);
-    }*/
+    public List<Curso> getCursos(Long id){
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+
+        if (usuario != null) {
+            return usuario.getCursos();
+        }else {
+            return null;
+        }
+    }
 }

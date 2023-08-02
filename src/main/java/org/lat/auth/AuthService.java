@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class AuthService {
         String token = jwtService.getToken(user);
 
         return AuthResponse.builder()
+                .usuario(user)
                 .token(token)
                 .build();
     }
@@ -64,8 +66,22 @@ public class AuthService {
             }
         }
 
+        UserDetails user = usuarioRepository.findByUsername(request.getUsername()).orElseThrow();
+
         return AuthResponse.builder()
+                .usuario(user)
                 .token(jwtService.getToken(newUsuario))
+                .build();
+    }
+
+    public AuthResponse checkToken(String username){
+
+        UserDetails user = usuarioRepository.findByUsername(username).orElseThrow();
+        String token = jwtService.getToken(user);
+
+        return AuthResponse.builder()
+                .usuario(user)
+                .token(token)
                 .build();
     }
 }

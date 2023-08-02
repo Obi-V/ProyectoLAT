@@ -35,7 +35,7 @@ public class Categoria {
 
     @ManyToMany(mappedBy = "categorias")
     @JsonIgnore
-    private Set<Usuario> usuarios = new HashSet<>();
+    private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Curso> cursos = new ArrayList<>();

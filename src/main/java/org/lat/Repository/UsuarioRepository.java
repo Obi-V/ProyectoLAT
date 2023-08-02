@@ -14,11 +14,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     Optional<Usuario> findByUsername(String username);
 
-     /*
-     public List<Usuario> findByUsernameContainingIgnoreCaseOrderByIdAsc(String nombre);
-
-    @Query(value="SELECT * from usuarios where usuario.username like %:nombre%", nativeQuery = true)
-    public List<Usuario> buscarPorNombre(@Param("nombre") String nombre);
-    */
-
+    
 }

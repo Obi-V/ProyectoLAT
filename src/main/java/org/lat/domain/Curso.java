@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
-@Table(name="cursos")
+@Table(name="curso")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,7 +41,7 @@ public class Curso {
 
     @ManyToMany(mappedBy = "cursos")
     @JsonIgnore
-    private Set<Usuario> usuarios = new HashSet<>();
+    private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<Video> videos = new ArrayList<>();

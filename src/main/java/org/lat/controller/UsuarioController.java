@@ -2,12 +2,15 @@ package org.lat.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.lat.domain.Curso;
 import org.lat.domain.Usuario;
 import org.lat.service.UsuarioService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -36,4 +39,8 @@ public class UsuarioController {
         this.usuarioService.delete(id);
     }
 
+    @GetMapping("/{usuarioId}/cursos")
+    public List<Curso> getCursosDeUsuario(@PathVariable long usuarioId) {
+        return usuarioService.getCursos(usuarioId);
+    }
 }

@@ -2,10 +2,7 @@ package org.lat.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.AuthProvider;
 
@@ -16,15 +13,21 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping(value="login")
+    @PostMapping(value="/login")
     public ResponseEntity<AuthResponse> Login(@RequestBody LoginRequest request){
 
         return ResponseEntity.ok(authService.login(request));
     }
 
 
-    @PostMapping(value="register")
+    @PostMapping(value="/register")
     public ResponseEntity<AuthResponse> Register(@RequestBody RegisterRequest request){
         return ResponseEntity.ok(authService.register(request));
+    }
+
+    @PostMapping(value="/check-token")
+    public ResponseEntity<AuthResponse> CheckToken(@RequestParam String username){
+
+        return ResponseEntity.ok(authService.checkToken(username));
     }
 }
