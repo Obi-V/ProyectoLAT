@@ -2,6 +2,7 @@ package org.lat.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.lat.auth.UpdateRequest;
 import org.lat.domain.Curso;
 import org.lat.domain.Usuario;
 import org.lat.service.UsuarioService;
@@ -27,8 +28,8 @@ public class UsuarioController {
 
     //Update por ID
     @PutMapping("/{id}")
-    public Usuario replaceUsuario(@PathVariable("id") Long id, @RequestBody Usuario usuario) {
-        return this.usuarioService.replace(id, usuario);
+    public Usuario replaceUsuario(@PathVariable("id") Long id, @RequestBody UpdateRequest updateRequest) {
+        return this.usuarioService.updateUsuario(id, updateRequest);
     }
 
     //Delete por ID
@@ -42,5 +43,10 @@ public class UsuarioController {
     @GetMapping("/{usuarioId}/cursos")
     public List<Curso> getCursosDeUsuario(@PathVariable long usuarioId) {
         return usuarioService.getCursos(usuarioId);
+    }
+
+    @GetMapping("/profesor/{profeName}")
+    public Usuario getProfe(@PathVariable String profeName){
+        return usuarioService.oneProfe(profeName);
     }
 }

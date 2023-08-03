@@ -74,14 +74,23 @@ public class AuthService {
                 .build();
     }
 
-    public AuthResponse checkToken(String username){
+    public AuthResponse checkToken(String token){
+
+        String username = jwtService.getUsernameFromToken(token);
 
         UserDetails user = usuarioRepository.findByUsername(username).orElseThrow();
-        String token = jwtService.getToken(user);
+        String nuevoToken = jwtService.getToken(user);
 
         return AuthResponse.builder()
                 .usuario(user)
-                .token(token)
+                .token(nuevoToken)
                 .build();
+    }
+
+    public String extractTokenFromAuthorizationHeader(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        }
+        return null;
     }
 }

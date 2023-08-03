@@ -26,8 +26,10 @@ public class AuthController {
     }
 
     @PostMapping(value="/check-token")
-    public ResponseEntity<AuthResponse> CheckToken(@RequestParam String username){
+    public ResponseEntity<AuthResponse> CheckToken(@RequestHeader("Authorization") String authorizationHeader){
 
-        return ResponseEntity.ok(authService.checkToken(username));
+        String token = authService.extractTokenFromAuthorizationHeader(authorizationHeader);
+
+        return ResponseEntity.ok(authService.checkToken(token));
     }
 }
