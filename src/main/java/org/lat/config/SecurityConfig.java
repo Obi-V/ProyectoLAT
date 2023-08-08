@@ -25,15 +25,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
-                .csrf(csrf ->
-                        csrf
-                                .disable())
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/lat/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/lat/**").hasAnyAuthority("ADMIN", "PROFESOR")
-                                .requestMatchers(HttpMethod.PUT, "/lat/usuario/**").hasAnyAuthority("ADMIN", "PROFESOR","ALUMNO")
+                                .requestMatchers(HttpMethod.PUT, "/lat/usuario/**").hasAnyAuthority("ADMIN", "PROFESOR", "ALUMNO")
                                 .requestMatchers(HttpMethod.PUT, "/lat/**").hasAnyAuthority("ADMIN", "PROFESOR")
                                 .requestMatchers(HttpMethod.DELETE, "/lat/usuario/**").hasAnyAuthority("ADMIN", "PROFESOR", "ALUMNO")
                                 .requestMatchers(HttpMethod.DELETE,"/lat/**").hasAnyAuthority("ADMIN", "PROFESOR")
@@ -45,6 +43,7 @@ public class SecurityConfig {
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors().and()
                 .build();
     }
 }
