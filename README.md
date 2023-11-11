@@ -29,7 +29,7 @@ La aplicación utiliza una base de datos MySQL para almacenar la información. A
    - Abre el archivo `src/main/resources/application.properties` en tu proyecto.
    - Verifica que las propiedades de la base de datos estén configuradas correctamente:
 
-2.   ```properties
+   ```properties
    spring.datasource.url=jdbc:mysql://localhost:3306/proyecto_lat?createDatabaseIfNotExist=true
    spring.datasource.username=root
    spring.datasource.password=usuario
