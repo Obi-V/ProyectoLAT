@@ -31,8 +31,8 @@ La aplicación utiliza una base de datos MySQL para almacenar la información. A
 
    ```properties
    spring.datasource.url=jdbc:mysql://localhost:3306/proyecto_lat?createDatabaseIfNotExist=true
-   spring.datasource.username=root
-   spring.datasource.password=usuario
+   spring.datasource.username=* usuario de tu conexión en la base de datos *
+   spring.datasource.password=* contraseña de tu conexión edn la base de datos*
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    
 ## Instalación
