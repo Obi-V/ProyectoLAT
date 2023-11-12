@@ -36,7 +36,7 @@ La aplicación utiliza una base de datos MySQL para almacenar la información. A
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    
 ## Instalación
-1. Debes levantar el backend de la anterior aplicación
+1. Debes tener configurada la conexión a la base de datos ( Punto anterior )
 2. Clona el repositorio desde tu IDE (En mi caso uso IntelliJ): `git clone https://github.com/Obi-V/ProyectoLAT`
 3. El JDK puede dar problemas, yo utilizo el 'Oracle OpenJDK version 20.0.1' porque el 21 daba fallos
 4. Ejecutar la aplicación mediante el método main 'LatApplication' en la carpeta **\ProyectoLAT\src\main\java\org\lat\LatApplication.java
@@ -48,5 +48,5 @@ La aplicación utiliza una base de datos MySQL para almacenar la información. A
 2. Explora la lista de profesores o publica tus habilidades como profesor.
 3. Inicia sesión y comunícate con otros usuarios mediante la función de mensajería interna.
 4. Asiste a clases en directo dentro de la plataforma.
-5. Deja calificaciones y reseñas después de cada interacción.
+5. Deja calificaciones y reseñas.
 
