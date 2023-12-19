@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.lat.domain.Role;
+
 import java.util.Set;
 
 @Data
@@ -25,4 +27,6 @@ public class UpdateRequest {
     Set<String> habilidades;
 
     Set<String> idiomas;
+
+    Role role;
 }

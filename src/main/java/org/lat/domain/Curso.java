@@ -3,11 +3,9 @@ package org.lat.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
@@ -16,6 +14,7 @@ import java.util.*;
 @Entity
 @Table(name="curso")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -41,13 +40,11 @@ public class Curso {
 
     @ManyToMany(mappedBy = "cursos")
     @JsonIgnore
-    private List<Usuario> usuarios = new ArrayList<>();
-
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
-    private List<Video> videos = new ArrayList<>();
+    private Set<Usuario> usuarios = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JsonIgnore
+    @JoinColumn(name = "categoria")
     private Categoria categoria;
 
 }

@@ -1,5 +1,6 @@
 package org.lat.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -67,9 +68,15 @@ public class Usuario implements UserDetails {
     @Column(name = "idioma")
     private Set<String> idiomas = new HashSet<>();
 
-    @ManyToMany()
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_curso",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "curso_id")
+    )
     @JsonIgnore
-    List<Curso> cursos = new ArrayList<>();;
+    private Set<Curso> cursos = new HashSet<>();
+
 
     @ManyToMany()
     @JsonIgnore

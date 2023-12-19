@@ -30,28 +30,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        final String token = getTokenFromRequest(request);
-        final String username;
 
-        if(token == null){
-            filterChain.doFilter(request,response);
-            return;
-        }
+        try {
+            final String token = getTokenFromRequest(request);
+            final String username;
 
-        username = jwtService.getUsernameFromToken(token);
-
-
-        if(username != null && SecurityContextHolder.getContext().getAuthentication()== null){
-            UserDetails userDetails =  userDetailsService.loadUserByUsername(username);
-
-            if (jwtService.isTokenValid(token, userDetails)){
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+            if (token == null) {
+                filterChain.doFilter(request, response);
+                return;
             }
-        }
 
+            username = jwtService.getUsernameFromToken(token);
+
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+                if (jwtService.isTokenValid(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
+            }
+        }catch (Exception e) {
+            // Loggear la excepción y manejarla de manera apropiada
+            logger.error("Error durante la autenticación JWT", e);
+            e.printStackTrace(); // Imprimir la traza de la excepción
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
         filterChain.doFilter(request,response);
     }
     private String getTokenFromRequest(HttpServletRequest request){

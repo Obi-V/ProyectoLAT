@@ -1,5 +1,6 @@
 package org.lat.Repository;
 
+import org.lat.domain.Categoria;
 import org.lat.domain.Curso;
 import org.lat.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,9 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
-
-    Optional<Usuario> findByUsername(String username);
-
+public interface CategoriaRepository extends JpaRepository<Categoria,Long> {
 
 }

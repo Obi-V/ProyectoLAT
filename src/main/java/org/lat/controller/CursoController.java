@@ -13,16 +13,17 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/lat/cursos")
+@RequestMapping("/lat/curso")
 @RequiredArgsConstructor
 public class CursoController {
     private final CursoService cursoService;
 
     //Get getAll
-    @GetMapping ({"", "/"})
+    @GetMapping({"", "/"})
     public List<Curso> getAll() {
         return this.cursoService.all();
     }
+
     //Post Crear
     @PostMapping({"", "/"})
     public Curso newCurso(@RequestBody Curso curso) {

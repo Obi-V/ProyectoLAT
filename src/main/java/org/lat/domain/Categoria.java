@@ -37,6 +37,7 @@ public class Categoria {
     @JsonIgnore
     private List<Usuario> usuarios = new ArrayList<>();
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Curso> cursos = new ArrayList<>();
+
 }

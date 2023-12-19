@@ -13,9 +13,11 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200") // Reemplaza esto con la URL de tu aplicación Angular
+                        //.allowedOrigins("http://localhost:4200") // Reemplaza esto con la URL de tu aplicación Angular
+                        .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                ;
             }
         };
     }

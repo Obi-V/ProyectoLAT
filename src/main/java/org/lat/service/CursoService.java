@@ -30,11 +30,9 @@ public class CursoService {
     }
 
     public Curso replace(Long id, Curso curso) {
-
         return this.cursoRepository.findById(id).map( p -> (id.equals(curso.getId())  ?
                         this.cursoRepository.save(curso) : null))
                 .orElseThrow(() -> new UsuarioNotFoundException(id));
-
     }
 
     public void delete(Long id) {

@@ -1,7 +1,10 @@
 package org.lat;
 
+import com.pusher.rest.Pusher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Collections;
 
 @SpringBootApplication
 public class LatApplication {
@@ -10,5 +13,4 @@ public class LatApplication {
 
         SpringApplication.run(LatApplication.class, args);
     }
-
 }

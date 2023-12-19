@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/lat/directos")
+@RequestMapping("/directos")
 public class DirectoController {
     private final DirectoService directoService;
 

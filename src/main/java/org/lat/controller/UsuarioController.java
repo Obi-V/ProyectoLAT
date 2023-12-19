@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,10 @@ import java.util.Set;
 @RequestMapping("/lat/usuario")
 public class UsuarioController {
     private final UsuarioService usuarioService;
-
+    @GetMapping({"","/"})
+    public List<Usuario> getAll() {
+        return this.usuarioService.all();
+    }
     //Get One por ID
     @GetMapping("/{id}")
     public Usuario one(@PathVariable("id") Long id) {
@@ -32,6 +36,11 @@ public class UsuarioController {
         return this.usuarioService.updateUsuario(id, updateRequest);
     }
 
+    @PutMapping("/block/{id}")
+    public Usuario blockUsuario(@PathVariable("id") Long id, @RequestBody UpdateRequest updateRequest) {
+        return this.usuarioService.blockUsuario(id, updateRequest);
+    }
+
     //Delete por ID
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -40,9 +49,22 @@ public class UsuarioController {
         this.usuarioService.delete(id);
     }
 
-    @GetMapping("/{usuarioId}/cursos")
-    public List<Curso> getCursosDeUsuario(@PathVariable long usuarioId) {
-        return usuarioService.getCursos(usuarioId);
+    @GetMapping("/cursos/{username}")
+    public Collection<Curso> getCursosDeUsuario(@PathVariable String username) {
+        return usuarioService.getCursos(username);
+    }
+
+    @PostMapping("/cursos/{username}/{idCurso}")
+    public Collection<Curso> addCursosDeUsuario(@PathVariable String username, @PathVariable Long idCurso) {
+        return usuarioService.addCursos(username, idCurso);
+    }
+
+    @DeleteMapping("/cursos/{idUser}")
+    public ResponseEntity<Void> removeAllCursos(@PathVariable Long idUser) {
+        log.info("Received request to delete cursos for user with id: {}", idUser);
+
+        usuarioService.removeAllCursos(idUser);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/profesor/{profeName}")
